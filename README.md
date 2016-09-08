@@ -1,18 +1,12 @@
-# eegeo/eegeo-routing-service-api
+# eegeo/eegeo-routing-api
+
+The eeGeo routing service allows you to find a route from point A to point B within a building created using the [indoor maps API](https://github.com/eegeo/eegeo-indoor-maps-api).  Routes are available to applications through a REST API at `https://routing.eegeo.com/`.
 
 This respository contains documentation and examples to help you use eeGeo's routing service.  
 
-Routes are calculated using path information provided through the [indoor maps API](https://github.com/eegeo/eegeo-indoor-maps-api).
-Routes will be available for buildings where:
-* Path information was provided for the building through the indoor maps API.
-* The building submission has been approved.
-* The approved building has been promoted to the public manifest.
+Routes are calculated using a fork of the [Open Source Routing Machine (OSRM)](https://github.com/eegeo/osrm-backend), a high performance routing engine designed for use with OpenStreetMap data. We're grateful to the [OSRM project](https://github.com/Project-OSRM) and all of its developers for making this available.  We've made minor changes to support the information required to describe indoor routes.  
 
-Only routes within a single building are supported.
-
-Routes are calculated using a fork of the [Open Source Routing Machine (OSRM)](https://github.com/eegeo/osrm-backend). Minor changes have been made to support the information required to describe indoor routes.  
-
-## HTTP endpoints
+## Service HTTP endpoints
 
 Routes can be obtained from two service endpoints using HTTP GET requests. Only the following endpoints are available; the eeGeo routing service does not support general OSRM requests. Responses from both endpoints use the same JSON format, following that of OSRM routes which include steps and annotations. The route geometry is specified as geoJSON. 
 
@@ -34,9 +28,10 @@ Note that the given location points will be resolved to points specified in the 
 The basic route query finds the shortest path between the given coordinates.  This endpoint is suitable when only one floor of the building has path information.
 
 #### Example
- 
-```https://routing.eegeo.com/v1/route/?loc=-1.910638,52.468141%3B-1.926356,52.467736&apikey=<apikey>```
 
+```
+https://routing.eegeo.com/v1/route/?loc=-1.910638,52.468141%3B-1.926356,52.467736&apikey=<apikey>
+```
 
 |Parameter|Description|
  --- | --- 
@@ -48,10 +43,11 @@ The basic route query finds the shortest path between the given coordinates.  Th
 
 The routelevels query finds a path between the given coordinates, using the level information to determine start and end floor levels within the building.
 
-
 #### Example
 
-```https://routing.eegeo.com/v1/routelevels/?loc=-2.9786783981,56.4602716589%3B-2.97831166606,56.4600344411&levels=0%3B2&apikey=<apikey>```
+```
+https://routing.eegeo.com/v1/routelevels/?loc=-2.9786783981,56.4602716589%3B-2.97831166606,56.4600344411&levels=0%3B2&apikey=<apikey>
+```
 
 |Parameter|Description|
  --- | --- 
@@ -59,6 +55,13 @@ The routelevels query finds a path between the given coordinates, using the leve
 |`loc`   | A semicolon separated list of points expressed as longitude,latitude.  Note that the semicolon may be encoded as %3B.
 |`levels`| A semicolon separated list of levels, one per location.
 |`limit`| Optional maximum distance in meters from loc points to the route start/end point. Default value is 10.
+
+## Route availability
+
+Routes will be available for buildings where:
+* Path information was provided for the building through the indoor maps API.
+* The building submission has been approved.
+* The approved building has been promoted to the public manifest.
 
 
 
