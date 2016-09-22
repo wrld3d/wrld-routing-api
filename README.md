@@ -1,5 +1,5 @@
 # eegeo/eegeo-routing-api
-
+![A generated route](/images/readme/routing-screenshot-indoor.png)
 The eeGeo routing service allows you to find a route from point A to point B within a building created using the [indoor maps API](https://github.com/eegeo/eegeo-indoor-maps-api).  Routes are available to applications through a REST API at `https://routing.eegeo.com/`.
 
 This respository contains documentation and examples to help you use eeGeo's routing service.  
