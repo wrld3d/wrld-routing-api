@@ -15,7 +15,8 @@ The top level JSON attributes in a response are:
 |Attribute|Type|Description|
  --- | --- | --- 
 |`code`| string | "Ok" if the request was successful; a high level error message otherwise.
-|`routes` | array of [route](https://github.com/eegeo/osrm-backend/blob/master/docs/http.md#route) JSON objects | Descriptions of each route found.
+|`type` | string | "multipart" if the returned route is made up of several smaller routes.
+|`routes` | array of route containers | Each of these contains an array of [route](https://github.com/eegeo/osrm-backend/blob/master/docs/http.md#route) options for each section of the overall journey.
 |`waypoints`| array of [waypoint](https://github.com/eegeo/osrm-backend/blob/master/docs/http.md#waypoint) JSON objects | Significant locations along the route.
 |`error` | string | Detailed error information if the request was not successful.
 
@@ -25,17 +26,23 @@ Note that the given location points will be resolved to points specified in the 
 
 ### route 
 
-The basic route query finds the shortest path between the given coordinates.  This endpoint is suitable when only one floor of the building has path information.
+The basic route query finds the shortest path between the given coordinates.  This endpoint is suitable for both indoor and outdoor routes, or combinations of the two.
 
-#### Example
+#### Example (outdoor)
 
 ```
-https://routing.eegeo.com/v1/route/?loc=-1.910638,52.468141%3B-1.926356,52.467736&apikey=<apikey>
+https://routing.eegeo.com/v1/route?loc=-1.910638,52.468141%3B-1.926356,52.467736&apikey=<apikey>
+```
+
+#### Example (indoor to outdoor)
+
+```
+https://routing.eegeo.com/v1/route?loc=-2.983122836389253,56.46123165326403,2%3B-2.9725653,56.4556209&apikey=<apikey>
 ```
 
 |Parameter|Description|
  --- | --- 
-|`loc`   | A semicolon separated list of points expressed as longitude,latitude.  Note that the semicolon may be encoded as %3B.
+|`loc`   | A semicolon separated list of points expressed as longitude,latitude, with an optional floor level index for waypoints that are indoors.  Note that the semicolon may be encoded as %3B.
 |`apikey`| An eeGeo application API token, obtained from the [eeGeo developer site](http://www.eegeo.com/developers/apikeys/).
 
 
