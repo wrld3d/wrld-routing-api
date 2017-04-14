@@ -1,4 +1,4 @@
-![WRLD](/images/readme/routing-screenshot-indoor.png)
+![WRLD](/images/routing-screenshot-indoor.png)
 
 WRLD Routing REST API v1.0.0
 ============================
