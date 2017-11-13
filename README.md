@@ -47,7 +47,7 @@ https://routing.wrld3d.com/v1/route?loc=-2.983122836389253,56.46123165326403,2%3
  --- | --- 
 |`loc`   | A semicolon separated list of points expressed as longitude,latitude, with an optional floor level index for waypoints that are indoors.  Note that the semicolon may be encoded as %3B.
 |`apikey`| An WRLD application API token, obtained from the [WRLD developer site](http://www.wrld3d.com/developers/apikeys/).
-
+|`limit`| Optional maximum distance in meters from loc points to the route start/end point. Default value is 10.
 
 ### routelevels
 
